@@ -1,9 +1,9 @@
 package com.realworld.webflux_coroutine.controller
 
-import com.realworld.webflux_coroutine.dto.UserRegistrationRequest
 import com.realworld.webflux_coroutine.dto.UserWrapper
-import com.realworld.webflux_coroutine.dto.request.UserAuthRequest
+import com.realworld.webflux_coroutine.dto.request.UserRegistrationRequest
 import com.realworld.webflux_coroutine.dto.response.UserResponse
+import com.realworld.webflux_coroutine.dto.toUserWrapper
 import com.realworld.webflux_coroutine.service.UserService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,7 +18,7 @@ class UserController(
 
     @PostMapping
     suspend fun registration(@RequestBody request: UserWrapper<UserRegistrationRequest>): UserWrapper<UserResponse> {
-        userService.registration(request.content)
+        return userService.registration(request.content).toUserWrapper()
     }
 
 //    @PostMapping("/login")
